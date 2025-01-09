@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Eliminar Producto";
+    @model CapaDatos.Models.Producto
+    <h2>@ViewData["Title"]</h2>
+    <h3>¿Estás Seguro de eliminar el producto?</h3>
+    <div>
+        <h4>Producto</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.Nombre)
+            </dt>
+
+            <dd class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.Nombre)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.Descripcion)
+            </dt>
+
+            <dd class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.Descripcion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.Categoria)
+            </dt>
+
+            <dd class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.Categoria)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.FotoUrl)
+            </dt>
+
+            <dd class="col-sm-2">
+                @Html.DisplayNameFor(Model => Model.FotoUrl)
+            </dd>
+        </dl>
+        <from asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" class="btn btn-danger" value="Eliminar Producto" />
+            <a asp-action="Index" class="btn btn-dark">Cancelar</a>
+        </from>
+    </div>
+}
