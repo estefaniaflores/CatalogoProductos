@@ -9,8 +9,16 @@ namespace CatalogoProductos.Controllers
         private readonly ProductoService _productoService = productoService;
         public IActionResult Index()
         {
-            var productos = _productoService.GetAllProductos();
-            return View(productos);
+            try
+            {
+                var productos = _productoService.GetAllProductos();
+                return View(productos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje="error"});
+            }
+            
         }
         public IActionResult Create()
         {
@@ -19,46 +27,86 @@ namespace CatalogoProductos.Controllers
         [HttpPost]
         public IActionResult Create(Producto producto)
         {
-            if(ModelState.IsValid) 
+            try
             {
-                _productoService.AddProducto(producto);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _productoService.AddProducto(producto);
+                    return RedirectToAction("Index");
+                }
+                return View(producto);
             }
-            return View(producto);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje="error"});
+            }
+           
         }
         public IActionResult Edit(int id)
         {
-            Producto producto = _productoService.GetProductoById(id);
-            if(producto == null) 
+            
+            try
             {
-                return NotFound();
+                Producto producto = _productoService.GetProductoById(id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
+                return View(producto);
             }
-            return View(producto);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "error" });
+            }
         }
         [HttpPost]
         public IActionResult Edit(Producto producto)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _productoService.UpdateProducto(producto);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _productoService.UpdateProducto(producto);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(producto);
             }
-            return View(producto);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "error" });
+            }
+            
         }
         public IActionResult Delete(int id)
         {
-            Producto producto = _productoService.GetProductoById(id);
-            if (producto == null)
+            try
             {
-                return NotFound();
+                Producto producto = _productoService.GetProductoById(id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
+                return View(producto);
             }
-            return View(producto);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "error" });
+            }
+            
         }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            _productoService.DeleteProdcuto(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _productoService.DeleteProdcuto(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "error" });
+            }
+            
         }
     }
 }
